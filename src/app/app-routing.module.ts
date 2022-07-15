@@ -1,7 +1,18 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AppComponent } from './app.component';
 
-const routes: Routes = [];
+import {CalendarioMonthComponent} from './components/calendario-month/calendario-month.component'
+
+const routes: Routes = [
+  {
+    path:'',
+    component: AppComponent
+  },{
+    path:'calendario',
+    component: CalendarioMonthComponent
+  }
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
