@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CalendarioMonthComponent } from './components/calendario-month/calendario-month.component';
+import { CalendarioMonthComponent } from './calendario-month/calendario-month.component';
 
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -11,12 +11,18 @@ import { FlatpickrModule } from 'angularx-flatpickr';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { EventListComponent } from './components/event-list/event-list.component';
+import { EventFormComponent } from './components/event-form/event-form.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    CalendarioMonthComponent
+    CalendarioMonthComponent,
+    NavbarComponent,
+    EventListComponent,
+    EventFormComponent
   ],
   imports: [
     BrowserModule,
