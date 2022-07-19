@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Event } from '../../interfaces/Event';
+import { EventService } from 'src/app/services/event.service';
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-event-form',
@@ -7,9 +10,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EventFormComponent implements OnInit {
 
-  constructor() { }
+  event: Event = {
+    name: '',
+    description:''
+  };
+
+  constructor(
+    private eventService: EventService,
+    private router: Router
+    ) { }
 
   ngOnInit(): void {
+  }
+
+  submitEvent(){
+    this.eventService.createEvents(this.event)
+    .subscribe(
+      res => {
+        console.log(res);
+        this.router.navigate(['/'])
+      },
+      err => console.log(err)
+    )
   }
 
 }

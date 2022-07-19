@@ -3,7 +3,7 @@
 export interface Event{
     _id?: string;
     name: string;
-    user: string;
+    user?: string;
     description: string;
-    createAt?: Date
+    createdAt?: Date
 }

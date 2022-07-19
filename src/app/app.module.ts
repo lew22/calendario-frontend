@@ -1,9 +1,13 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
+import {HttpClientModule} from '@angular/common/http'
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CalendarioMonthComponent } from './calendario-month/calendario-month.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -26,7 +30,9 @@ import { EventFormComponent } from './components/event-form/event-form.component
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     CommonModule,
+    HttpClientModule,
     FormsModule,
     NgbModalModule,
     FlatpickrModule.forRoot(),

@@ -1,1 +1,21 @@
-<p>event-list works!</p>
+
+<div *ngFor="let event of events" class="card card-body mb-2">
+    <div class="row">
+        <div class="col-md-8">
+            <ul>
+                <li>
+                    id:{{event._id}}
+                </li>
+                <li>
+                    name:{{event.name}}
+                </li>
+                <li>
+                    description:{{event.description}}
+                </li>
+                <li>
+                    createdAt:{{event.createdAt}}
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
