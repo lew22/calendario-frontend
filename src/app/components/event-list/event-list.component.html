@@ -1,19 +1,19 @@
 
-<div *ngFor="let event of events" class="card card-body mb-2">
+<div *ngFor="let elemen of datos" class="card card-body mb-2">
     <div class="row">
         <div class="col-md-8">
             <ul>
-                <li>
-                    id:{{event._id}}
+                <li >
+                    id: {{elemen._id}}
                 </li>
                 <li>
-                    name:{{event.name}}
+                    name:{{elemen.name}}
                 </li>
                 <li>
-                    description:{{event.description}}
+                    description:{{elemen.description}}
                 </li>
                 <li>
-                    createdAt:{{event.createdAt}}
+                    createdAt:{{elemen.createdAt}}
                 </li>
             </ul>
         </div>

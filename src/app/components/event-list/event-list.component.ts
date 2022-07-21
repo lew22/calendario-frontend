@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {EventService} from '../../services/event.service'
 import { Event } from '../../interfaces/Event'
+import { daysToWeeks } from 'date-fns';
+import { pluck } from 'rxjs/operators';
 
 @Component({
   selector: 'app-event-list',
@@ -9,7 +11,8 @@ import { Event } from '../../interfaces/Event'
 })
 export class EventListComponent implements OnInit {
 
-  events: Event[] = [];
+  // data: Event[] = [];
+  datos: any
 
   constructor(private eventService: EventService) { }
 
@@ -19,11 +22,12 @@ export class EventListComponent implements OnInit {
   
   getEvents(){
     this.eventService.getEvents()
-    .subscribe(
+    .pipe(
+      pluck('body')
+    ).subscribe(
       res => {
-        //le pasamos un objeto y nos devuelve un array
-        this.events = Object.values(res);
-        console.log(this.events)
+        this.datos = res;
+        console.log(this.datos)
       },
       err => console.log(err)
     )
