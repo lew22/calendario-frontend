@@ -50,21 +50,21 @@ export class EventFormComponent implements OnInit {
 
   event: Event = {
     start:new Date,
-    end:new Date,
+    // end:new Date,
     title: '',
-    color:{        
-    primary: '#ad2121',
-    secondary: '#FAE3E3'},
-    actions:{
-      label: "<i class=\"fas fa-fw fa-pencil-alt\"></i>",
-      a11yLabel: "Edit"
-    },
-    allDay: false,
-    draggable: false,
-    resizable: {
-      beforeStart: false,
-      afterEnd: false
-    }
+    // color:{        
+    // primary: '#ad2121',
+    // secondary: '#FAE3E3'},
+    // actions:{
+    //   label: "<i class=\"fas fa-fw fa-pencil-alt\"></i>",
+    //   a11yLabel: "Edit"
+    // },
+    // allDay: false,
+    // draggable: false,
+    // resizable: {
+    //   beforeStart: false,
+    //   afterEnd: false
+    // }
   };
 
   constructor(

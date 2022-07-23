@@ -6,22 +6,22 @@ export interface Event{
     // user?: String;
     // description: String;
     // createdAt?: Date
-    _id?: String;
+    _id?: string;
     start: Date;
-    end: Date;
-    title: String;
-    color:{
-        primary: String,
-        secondary: String
-    },
-    actions:{
-        label: String,
-        a11yLabel: String
-    },
-    allDay : Boolean;
-    draggable: Boolean;
-    resizable :{
-        beforeStart: Boolean,
-        afterEnd: Boolean
-    }
+    // end: Date;
+    title: string;
+    // color:{
+    //     primary: string,
+    //     secondary: string
+    // },
+    // actions:{
+    //     label: string,
+    //     a11yLabel: string
+    // },
+    // allDay : Boolean;
+    // draggable: Boolean;
+    // resizable :{
+    //     beforeStart: Boolean,
+    //     afterEnd: Boolean
+    // }
 }

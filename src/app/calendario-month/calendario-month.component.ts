@@ -23,13 +23,14 @@ import {
   import { EventService } from 'src/app/services/event.service';
   import { Router } from '@angular/router'
   import { pluck } from 'rxjs/operators';
-
+  
   import {
     CalendarEvent,
     CalendarEventAction,
     CalendarEventTimesChangedEvent,
     CalendarView,
   } from 'angular-calendar';
+import { ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
   
   const colors: any = {
     red: {
@@ -100,26 +101,51 @@ import {
     ];
   
     refresh = new Subject<void>();
-  
-    // events: CalendarEvent[] = [
-    //   {
-    //     start: subDays(startOfDay(new Date()), 1),
-    //     end: addDays(new Date(), 1),
-    //     title: 'A 3 day event',
-    //     color: colors.red,
-    //     actions: this.actions,
-    //     allDay: true,
-    //     resizable: {
-    //       beforeStart: true,
-    //       afterEnd: true,
-    //     },
+
+    test: Event[] = []
+
+    evento: Event = {
+      start: new Date(),
+      title: 'test'
+    }
+
+    arr: Event[] = [{
+      start: new Date(),title:"sad"
+    }]
+
+    // Event = {
+    //   start: startOfDay(new Date()),
+    //   title: 'test'
+    // }
+
+    // {
+    //   start:this.evento.start,
+    //   title:this.evento.title
+    // }
+    events: CalendarEvent[] = [
+      // {
+      //   start: subDays(endOfMonth(new Date()), 1),
+      //   title: 'A long event that spans 2 months'
+      // },
+      // {
+      //   start: subDays(endOfMonth(new Date()), 2),
+      //   title: 'fadafsd'
+      // }
+    ];
+
+
+    // {
+    //   start: subDays(startOfDay(new Date()), 1),
+    //   end: addDays(new Date(), 1),
+    //   title: 'A 3 day event',
+    //   color: colors.red,
+    //   actions: this.actions,
+    //   allDay: true,
+    //   resizable: {
+    //     beforeStart: true,
+    //     afterEnd: true,
     //   },
-    //   {
-    //     start: startOfDay(new Date()),
-    //     title: 'An event with no end date',
-    //     color: colors.yellow,
-    //     actions: this.actions,
-    //   },
+    // }, 
     //   {
     //     start: subDays(endOfMonth(new Date()), 3),
     //     end: addDays(endOfMonth(new Date()), 3),
@@ -152,32 +178,29 @@ import {
     //     },
     //     draggable: true,
     //   },
-    // ];
   
-        //get
-        datos: any
-        events: CalendarEvent[] = [];
+        // events: CalendarEvent[] = [];
         
         //create
-        evento: Event = {
-          start: startOfDay(new Date()),
-          end: endOfDay(new Date()),
-          title: 'test',
-          color: {
-            primary: '#ad2121',
-            secondary: '#FAE3E3'
-          },
-          actions: {
-            label: "<i class=\"fas fa-fw fa-pencil-alt\"></i>",
-            a11yLabel: "Edit"
-          },
-          allDay: true,
-          draggable: true,
-          resizable: {
-            beforeStart: true,
-            afterEnd: true
-          }
-        }
+        // evento: Event = {
+        //   start: startOfDay(new Date()),
+        //   end: endOfDay(new Date()),
+        //   title: 'test',
+        //   color: {
+        //     primary: '#ad2121',
+        //     secondary: '#FAE3E3'
+        //   },
+        //   actions: {
+        //     label: "<i class=\"fas fa-fw fa-pencil-alt\"></i>",
+        //     a11yLabel: "Edit"
+        //   },
+        //   allDay: true,
+        //   draggable: true,
+        //   resizable: {
+        //     beforeStart: true,
+        //     afterEnd: true
+        //   }
+        // }
 
     activeDayIsOpen: boolean = true;
   
@@ -187,8 +210,7 @@ import {
       ) {}
   
     dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
-      events = this.events
-      console.log("los eventos al hacer click",events)
+      // console.log("los eventos al hacer click",events)
       if (isSameMonth(date, this.viewDate)) {
         if (
           (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
@@ -221,6 +243,7 @@ import {
     }
   
     handleEvent(action: string, event: CalendarEvent): void {
+      
       this.modalData = { event, action };
       this.modal.open(this.modalContent, { size: 'lg' });
     }
@@ -250,31 +273,40 @@ import {
       )
 
     }
-
+    
     getEvents(){
       this.eventService.getEvents()
-      .pipe(
-        pluck('body')
-      )
+      // .pipe(
+      //   pluck('body')
+      // )
       .subscribe(
         res => {
-          this.datos = res
-          this.events = this.datos;
-          // console.log("Datos",this.datos)
-          // this.events = this.datos
-          // console.log("Eventos",this.events)
+          let response = JSON.stringify(res)
+          // console.log(response)
+          const objeto = JSON.parse(response);
+          console.log(objeto.body)
+          this.test= objeto.body
+          // let objIndex = this.test.findIndex((obj => obj.title == 'test'));
+          // console.log("index's",objIndex)
+          // console.log("before update: ", this.test)
+          for(let i = 0; i < this.test.length ; i++){
+            let date = this.test[i].start
+            this.test[i].start = new Date(date)
+          }
+          // console.log("befoe update: ", this.test)
+          this.events = this.events.concat(this.test)
+          console.log(this.events)
+          // this.invoices = objeto.BOM.BO.OINV.row;
+          // console.log(this.invoices);
+          
         },
         err => console.log(err)
       )
       
-      this.events.forEach(event => {
-        event.start = new Date(event.start);
-        // event.end = new Date(event.end);
-      });
-
-      console.log("Los eventos al traerlos",this.events)
     }
-    
+
+
+
     deleteEvent(eventToDelete: CalendarEvent) {
       this.events = this.events.filter((event) => event !== eventToDelete);
     }
