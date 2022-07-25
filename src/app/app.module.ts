@@ -39,7 +39,6 @@ import { ObjToArrayPipe } from './objToArray';
   ],
   imports: [ 
     NgbModule,
-    BrowserModule,
     BrowserAnimationsModule,
     CommonModule,
     HttpClientModule,

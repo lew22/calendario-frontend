@@ -1,3 +1,4 @@
+import { CalendarEventAction } from "angular-calendar";
 
 
 export interface Event{
@@ -10,14 +11,15 @@ export interface Event{
     start: Date;
     // end: Date;
     title: string;
+    actions: CalendarEventAction[]
     // color:{
     //     primary: string,
     //     secondary: string
     // },
-    // actions:{
+    // actions: {
     //     label: string,
     //     a11yLabel: string
-    // },
+    // };
     // allDay : Boolean;
     // draggable: Boolean;
     // resizable :{

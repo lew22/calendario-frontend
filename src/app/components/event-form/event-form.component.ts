@@ -52,13 +52,11 @@ export class EventFormComponent implements OnInit {
     start:new Date,
     // end:new Date,
     title: '',
+    actions: []
     // color:{        
     // primary: '#ad2121',
     // secondary: '#FAE3E3'},
-    // actions:{
-    //   label: "<i class=\"fas fa-fw fa-pencil-alt\"></i>",
-    //   a11yLabel: "Edit"
-    // },
+    // actions: []
     // allDay: false,
     // draggable: false,
     // resizable: {

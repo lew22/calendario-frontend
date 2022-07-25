@@ -25,11 +25,12 @@ export class EventService {
     }
 
     deleteEvents(id:string){
-      return this.http.delete<Event>(`${this.BASE_URL}/evento/delete?eventId=${id}`)
+      // return this.http.delete<Event>(`${this.BASE_URL}/evento/delete?eventId=${id}`)
+      return this.http.delete<Event>(`${this.BASE_URL}/evento/delete/${id}`)
     }
 
     updateEvents(id: string,event: Event): Observable<Event>{
-      return this.http.put<Event>(`${this.BASE_URL}/evento/update?eventId=${id}`,event)
+      return this.http.put<Event>(`${this.BASE_URL}/evento/update/${id}`,event)
     }
 
 

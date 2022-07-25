@@ -31,8 +31,9 @@ import {
     CalendarView,
   } from 'angular-calendar';
 import { ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
-  
-  const colors: any = {
+import { provideProtractorTestingSupport } from '@angular/platform-browser';
+
+const colors: any = {
     red: {
       primary: '#ad2121',
       secondary: '#FAE3E3',
@@ -104,33 +105,65 @@ import { ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
 
     test: Event[] = []
 
+    testD: Event[] = []
+
     evento: Event = {
       start: new Date(),
-      title: 'test'
+      title: 'test',
+      actions: []
     }
 
     arr: Event[] = [{
-      start: new Date(),title:"sad"
+      start: new Date(),
+      title: "sad",
+      actions: []
     }]
 
-    // Event = {
-    //   start: startOfDay(new Date()),
-    //   title: 'test'
-    // }
-
-    // {
-    //   start:this.evento.start,
-    //   title:this.evento.title
-    // }
     events: CalendarEvent[] = [
-      // {
-      //   start: subDays(endOfMonth(new Date()), 1),
-      //   title: 'A long event that spans 2 months'
-      // },
-      // {
-      //   start: subDays(endOfMonth(new Date()), 2),
-      //   title: 'fadafsd'
-      // }
+    // {
+    //   start: subDays(startOfDay(new Date()), 1),
+    //   end: addDays(new Date(), 1),
+    //   title: 'A 3 day event',
+    //   color: colors.red,
+    //   actions: this.actions,
+    //   allDay: true,
+    //   resizable: {
+    //     beforeStart: true,
+    //     afterEnd: true,
+    //   },
+    // }, 
+    //   {
+    //     start: subDays(endOfMonth(new Date()), 3),
+    //     end: addDays(endOfMonth(new Date()), 3),
+    //     title: 'A long event that spans 2 months',
+    //     color: colors.blue,
+    //     allDay: true,
+    //   },
+    //   {
+    //     start: addHours(startOfDay(new Date()), 2),
+    //     end: addHours(new Date(), 2),
+    //     title: 'A draggable and resizable event',
+    //     color: colors.yellow,
+    //     actions: this.actions,
+    //     resizable: {
+    //       beforeStart: true,
+    //       afterEnd: true,
+    //     },
+    //     draggable: true,
+    //   },
+    //   {
+    //     start: subDays(startOfDay(new Date()), 1),
+    //     end: addDays(new Date(), 1),
+    //     title: 'A 3 day event',
+    //     color: colors.red,
+    //     actions: this.actions,
+    //     allDay: true,
+    //     resizable: {
+    //       beforeStart: true,
+    //       afterEnd: true,
+    //     },
+    //     draggable: true,
+    //   },
     ];
 
 
@@ -178,29 +211,7 @@ import { ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
     //     },
     //     draggable: true,
     //   },
-  
-        // events: CalendarEvent[] = [];
-        
-        //create
-        // evento: Event = {
-        //   start: startOfDay(new Date()),
-        //   end: endOfDay(new Date()),
-        //   title: 'test',
-        //   color: {
-        //     primary: '#ad2121',
-        //     secondary: '#FAE3E3'
-        //   },
-        //   actions: {
-        //     label: "<i class=\"fas fa-fw fa-pencil-alt\"></i>",
-        //     a11yLabel: "Edit"
-        //   },
-        //   allDay: true,
-        //   draggable: true,
-        //   resizable: {
-        //     beforeStart: true,
-        //     afterEnd: true
-        //   }
-        // }
+
 
     activeDayIsOpen: boolean = true;
   
@@ -210,7 +221,7 @@ import { ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
       ) {}
   
     dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
-      // console.log("los eventos al hacer click",events)
+      console.log("los eventos al hacer click",events)
       if (isSameMonth(date, this.viewDate)) {
         if (
           (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
@@ -263,14 +274,16 @@ import { ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
       //     },
       //   },
       // ];
-      this.eventService.createEvents(this.evento)
-      .subscribe(
-      res => {
-        console.log(res);
-        this.router.navigate(['/'])
-      },
-      err => console.log(err)
-      )
+      this.modal.open(this.modalContent, { size: 'lg' });
+
+      // this.eventService.createEvents(this.evento)
+      // .subscribe(
+      // res => {
+      //   console.log(res);
+      //   this.router.navigate(['/'])
+      // },
+      // err => console.log(err)
+      // )
 
     }
     
@@ -284,14 +297,17 @@ import { ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
           let response = JSON.stringify(res)
           // console.log(response)
           const objeto = JSON.parse(response);
-          console.log(objeto.body)
+          // console.log(objeto.body)
           this.test= objeto.body
           // let objIndex = this.test.findIndex((obj => obj.title == 'test'));
           // console.log("index's",objIndex)
           // console.log("before update: ", this.test)
           for(let i = 0; i < this.test.length ; i++){
+            //CAMBIO DE FORMATO DATE
             let date = this.test[i].start
             this.test[i].start = new Date(date)
+            //ADICION DE ACTIONS
+            this.test[i].actions = this.actions
           }
           // console.log("befoe update: ", this.test)
           this.events = this.events.concat(this.test)
@@ -305,10 +321,22 @@ import { ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
       
     }
 
-
-
     deleteEvent(eventToDelete: CalendarEvent) {
       this.events = this.events.filter((event) => event !== eventToDelete);
+
+      let response = JSON.stringify(eventToDelete)
+      const objeto = JSON.parse(response);
+      this.testD = objeto
+      let arrDelete = Object.values(this.testD)
+      console.log("Event a eliminar",arrDelete)
+      let id = arrDelete[0]
+
+      this.eventService.deleteEvents(id.toString()).subscribe(
+        res =>{
+          console.log(res)
+        },
+        err => console.log(err)
+      )
     }
   
     setView(view: CalendarView) {
@@ -318,5 +346,6 @@ import { ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
     closeOpenMonthViewDay() {
       this.activeDayIsOpen = false;
     }
+
   }
   
