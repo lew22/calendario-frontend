@@ -4,6 +4,7 @@ import {
     ChangeDetectionStrategy,
     ViewChild,
     TemplateRef,
+    OnInit,
   } from '@angular/core';
   
   import {
@@ -68,8 +69,13 @@ const colors: any = {
   })
   
   export class CalendarioMonthComponent {
-    
-   @ViewChild('modalContent', { static: true }) modalContent?: TemplateRef<any>;
+  
+  
+  @ViewChild('modalContent', { static: true }) modalContent?: TemplateRef<any>;
+  @ViewChild('modalContentAdd', { static: true }) modalContentAdd?: TemplateRef<any>;
+  @ViewChild('modalContentEdit', { static: true }) modalContentEdit?: TemplateRef<any>;
+
+
     view: CalendarView = CalendarView.Month;
     title ='calendario-frontend';
 
@@ -82,7 +88,7 @@ const colors: any = {
       action: string;
       event: CalendarEvent;
     };
-  
+
     actions: CalendarEventAction[] = [
       {
         label: '<i class="fas fa-fw fa-pencil-alt"></i>',
@@ -95,23 +101,20 @@ const colors: any = {
         label: '<i class="fas fa-fw fa-trash-alt"></i>',
         a11yLabel: 'Delete',
         onClick: ({ event }: { event: CalendarEvent }): void => {
-          this.events = this.events.filter((iEvent) => iEvent !== event);
           this.handleEvent('Deleted', event);
+          this.events = this.events.filter((iEvent) => iEvent !== event);
         },
       },
     ];
-  
+    
+
     refresh = new Subject<void>();
 
     test: Event[] = []
 
     testD: Event[] = []
 
-    evento: Event = {
-      start: new Date(),
-      title: 'test',
-      actions: []
-    }
+    testU: Event[] = []
 
     arr: Event[] = [{
       start: new Date(),
@@ -166,6 +169,19 @@ const colors: any = {
     //   },
     ];
 
+    eventA: Event = {
+      title:'',
+      start:new Date(),
+      actions: []
+      // end:new Date()
+    }
+
+    eventU: Event = {
+      title:'',
+      start:new Date(),
+      actions: []
+      // end:new Date()
+    }
 
     // {
     //   start: subDays(startOfDay(new Date()), 1),
@@ -212,16 +228,16 @@ const colors: any = {
     //     draggable: true,
     //   },
 
-
     activeDayIsOpen: boolean = true;
   
     constructor(private modal: NgbModal,
       private eventService: EventService,
-      private router: Router,
-      ) {}
+      private router: Router
+      ) {
+        this.getEvents()
+      }
   
     dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
-      console.log("los eventos al hacer click",events)
       if (isSameMonth(date, this.viewDate)) {
         if (
           (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
@@ -234,7 +250,7 @@ const colors: any = {
         this.viewDate = date;
       }
     }
-  
+
     eventTimesChanged({
       event,
       newStart,
@@ -255,38 +271,37 @@ const colors: any = {
   
     handleEvent(action: string, event: CalendarEvent): void {
       
-      this.modalData = { event, action };
-      this.modal.open(this.modalContent, { size: 'lg' });
+      if(action == 'Edited'){
+        this.modalData = { event, action };
+        this.modal.open(this.modalContentEdit, { centered: true,size: 'lg' });
+        // this.eventU = event
+      } else if (action == 'Deleted'){
+        this.deleteEvent(event)
+        // this.modalData = { event, action };
+        // this.modal.open(this.modalContent, { centered: true,size: 'lg' });
+      }
     }
-  
+
+    openModalAdd(){
+      this.modal.open(this.modalContentAdd,{centered: true , size: 'lg' })
+    }
+
     addEvent(){
-      // this.events = [
-      //   ...this.events,
-      //   {
-      //     title: 'New event',
-      //     start: startOfDay(new Date()),
-      //     end: endOfDay(new Date()),
-      //     color: colors.red,
-      //     draggable: true,
-      //     resizable: {
-      //       beforeStart: true,
-      //       afterEnd: true,
-      //     },
-      //   },
-      // ];
-      this.modal.open(this.modalContent, { size: 'lg' });
 
-      // this.eventService.createEvents(this.evento)
-      // .subscribe(
-      // res => {
-      //   console.log(res);
-      //   this.router.navigate(['/'])
-      // },
-      // err => console.log(err)
-      // )
+      console.log(this.eventA)
+      delete this.eventA.actions
+      this.modal.dismissAll()
+      this.eventService.createEvents(this.eventA)
+      .subscribe(
+      res => {
+        console.log(res);
+        this.router.navigate(['/'])
+      },
+      err => console.log(err)
+      )
 
     }
-    
+
     getEvents(){
       this.eventService.getEvents()
       // .pipe(
@@ -315,10 +330,45 @@ const colors: any = {
           // this.invoices = objeto.BOM.BO.OINV.row;
           // console.log(this.invoices);
           
+          this.refresh.next()
         },
         err => console.log(err)
       )
       
+    }
+
+    updateEvent(){
+      if(this.modalData == undefined){
+        console.log("modalData is undefined")
+      }else{
+        //guardar info
+        let data = this.modalData?.event
+        this.eventU = data
+        //obtener id
+        delete this.eventU.actions
+        let response = JSON.stringify(this.eventU)
+        const objeto = JSON.parse(response);
+        this.testU = objeto
+        let arrUpdate = Object.values(this.testU)
+        console.log("Event a actualizar",arrUpdate)
+        let id = arrUpdate[0]
+
+        this.modal.dismissAll()
+
+        this.eventService.updateEvents(id.toString(),this.eventU).subscribe(
+          res =>{
+            console.log(res)
+            for(let i = 0; i < this.test.length ; i++){
+              //ADICION DE ACTIONS
+              this.test[i].actions = this.actions
+            }
+            this.refresh.next()
+          },
+          err => console.log(err)
+          )
+
+      }
+
     }
 
     deleteEvent(eventToDelete: CalendarEvent) {
@@ -330,7 +380,7 @@ const colors: any = {
       let arrDelete = Object.values(this.testD)
       console.log("Event a eliminar",arrDelete)
       let id = arrDelete[0]
-
+      this.modal.dismissAll()
       this.eventService.deleteEvents(id.toString()).subscribe(
         res =>{
           console.log(res)
@@ -344,7 +394,7 @@ const colors: any = {
     }
   
     closeOpenMonthViewDay() {
-      this.activeDayIsOpen = false;
+      this.activeDayIsOpen = true;
     }
 
   }

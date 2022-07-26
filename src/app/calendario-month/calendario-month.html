@@ -90,33 +90,201 @@
     (eventTimesChanged)="eventTimesChanged($event)"
   >
   </mwl-calendar-day-view>
+
+  <div>
+    <button class="btn btn-primary float-right" (click)="openModalAdd()">
+      Add new
+    </button>
+
+    <!-- <button class="btn btn-primary float-right mb-2 me-2" (click)="getEvents()">
+      get Events
+    </button> -->
+  </div>
 </div>
 
 <!-- Everything you see below is just for the demo, you don't need to include it in your app -->
 
 <br /><br /><br />
 
-<h3>
+
+<ng-template #modalContentAdd let-close="close">
+
+    <div class="col-sm-4 offset-md-4">
+
+      <div class="modal-header">
+        <h5 class="modal-title">Add Event</h5>
+        <button type="button" class="ml close" (click)="close()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+          <form (submit)="addEvent()">
+              <!-- Title -->
+              <div class="form-group">
+                  <input type="text" name = "title"  [(ngModel)]="eventA.title" name="title" class="form-control" placeholder="Event Title">
+              </div>
+
+              <!-- Date -->
+              <form class="row row-cols-sm-auto">
+                <h6 class="modal-title">startd at</h6>
+                <div class="input-group ">
+                  <input
+                  class="form-control"
+                  type="text"
+                  mwlFlatpickr
+                  [altInput]="true"
+                  [convertModelValue]="true"
+                  [enableTime]="true"
+                  dateFormat="Y-m-dTH:i"
+                  altFormat="F j, Y H:i"
+                  placeholder="Not set"
+                  [(ngModel)]="eventA.start"
+                  name="start"
+                />
+                </div>
+
+                <!-- <div class="input-group">
+                  <input
+                  class="form-control"
+                  type="text"
+                  mwlFlatpickr
+                  [altInput]="true"
+                  [convertModelValue]="true"
+                  [enableTime]="true"
+                  dateFormat="Y-m-dTH:i"
+                  altFormat="F j, Y H:i"
+                  placeholder="Not set"
+                  name="end"
+                />
+                </div> -->
+
+                </form>
+
+              <hr>
+
+              <button class="btn btn-primary btn-block">
+                  Enviar
+              </button> 
+          </form>
+    </div>
+
+</ng-template>
+
+
+  <ng-template #modalContentEdit let-close="close">
+    <div class="table-responsive">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit Event</h5>
+        <button type="button" class="ml close" (click)="close()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Starts at</th>
+            <th>Ends at</th>
+          </tr>
+        </thead>
+        <tbody>
+
+            <td>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="modalData?.event!.title!"
+                (keyup)="refresh.next()"
+              />
+            </td>
+            <td>
+              <input
+                class="form-control"
+                type="text"
+                mwlFlatpickr
+                [(ngModel)]="modalData?.event!.start!"
+                (ngModelChange)="refresh.next()"
+                [altInput]="true"
+                [convertModelValue]="true"
+                [enableTime]="true"
+                dateFormat="Y-m-dTH:i"
+                altFormat="F j, Y H:i"
+                placeholder="Not set"
+              />
+            </td>
+            <td>
+              <input
+                class="form-control"
+                type="text"
+                mwlFlatpickr
+                [(ngModel)]="modalData?.event!.end!"
+                (ngModelChange)="refresh.next()"
+                [altInput]="true"
+                [convertModelValue]="true"
+                [enableTime]="true"
+                dateFormat="Y-m-dTH:i"
+                altFormat="F j, Y H:i"
+                placeholder="Not set"
+              />
+            </td>
+         
+        </tbody>
+       </table>
+
+       <div class="modal-footer">
+        <button class="btn btn-primary btn-block" (click)="updateEvent()">
+          Enviar
+        </button>
+       </div>
+    </div>
+  </ng-template>
+
+  <ng-template #modalContent let-close="close">
+    <div class="modal-header">
+      <h5 class="modal-title">Event action occurred</h5>
+      <button type="button" class="close" (click)="close()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div>
+        Action:
+        <pre>{{ modalData?.action }}</pre>
+      </div>
+      <div>
+        Event:
+        <pre>{{ modalData?.event | json }}</pre>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-secondary" (click)="close()">
+        OK
+      </button>
+    </div>
+  </ng-template>
+
+
+<!--<h3> 
   Edit events
-  <button class="btn btn-primary float-right" (click)="addEvent()">
+   <button class="btn btn-primary float-right" (click)="addEvent()">
     Add new
   </button>
-  
+
   <button class="btn btn-primary float-right" (click)="getEvents()">
     get Events
   </button>
 
   <div class="clearfix"></div>
-</h3>
+</h3> -->
 
-<div class="table-responsive">
+<!-- <div class="table-responsive">
   <table class="table table-bordered">
     <thead>
       <tr>
         <th>Title</th>
-        <!-- <th>Primary color</th>
+        <!- <th>Primary color</th>
         <th>Secondary color</th> -->
-        <th>Starts at</th>
+        <!-- <th>Starts at</th>
         <th>Ends at</th>
         <th>Remove</th>
       </tr>
@@ -131,7 +299,7 @@
             [(ngModel)]="event.title"
             (keyup)="refresh.next()"
           />
-        </td>
+        </td> -->
         <!-- <td>
           <input
             type="color"
@@ -146,7 +314,7 @@
             (change)="refresh.next()"
           />
         </td> -->
-        <td>
+        <!-- <td>
           <input
             class="form-control"
             type="text"
@@ -183,48 +351,11 @@
         </td>
       </tr>
     </tbody>
-  </table>
-</div>
+  </table> -->
+<!-- </div> -->
 
-<ng-template #modalContent let-close="close">
-  <div class="modal-header">
-    <h5 class="modal-title">Event action occurred</h5>
-    <button type="button" class="close" (click)="close()">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <div>
-      Action:
-      <pre>{{ modalData?.action }}</pre>
-    </div>
-    <div>
-      Event:
-      <pre>{{ modalData?.event | json }}</pre>
-    </div>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-outline-secondary" (click)="close()">
-      OK
-    </button>
-  </div>
 
-  <ng-template #modalContent let-close="close">
-    <div class="modal-header">
-      <h5 class="modal-title">Add Event</h5>
-      <button type="button" class="close" (click)="close()">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
 
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-outline-secondary" (click)="close()">
-        OK
-      </button>
-    </div>
-    
 
   <router-outlet></router-outlet>
   

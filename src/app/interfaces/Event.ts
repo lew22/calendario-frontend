@@ -11,7 +11,7 @@ export interface Event{
     start: Date;
     // end: Date;
     title: string;
-    actions: CalendarEventAction[]
+    actions?: CalendarEventAction[]
     // color:{
     //     primary: string,
     //     secondary: string
