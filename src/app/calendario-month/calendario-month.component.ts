@@ -118,7 +118,9 @@ const colors: any = {
 
     arr: Event[] = [{
       start: new Date(),
+      end:new Date(),
       title: "sad",
+      color: colors.red,
       actions: []
     }]
 
@@ -170,18 +172,34 @@ const colors: any = {
     ];
 
     eventA: Event = {
-      title:'',
+      title:'testing',
       start:new Date(),
+      end:new Date(),
+      color: colors.red,
       actions: []
       // end:new Date()
     }
 
-    eventU: Event = {
+    eventU?: Event = {
       title:'',
       start:new Date(),
+      end:new Date(),
+      color: colors.red,
       actions: []
       // end:new Date()
     }
+
+    selectedColor:string = "#ff0000";
+    // colorToAdd:string = '#EC407A';
+    colorPalette:Array<any> = [
+      // {
+      //   preview: '#9c27b0e0', 
+      //   variants:['#9c27b0','#9c27b0de','#9c27b0bd','#9c27b09c','#9c27b075','#9c27b047']
+      // },
+      '#ff0000',
+      '#0000FF',
+      '#FFFF00'
+    ]
 
     // {
     //   start: subDays(startOfDay(new Date()), 1),
@@ -274,7 +292,9 @@ const colors: any = {
       if(action == 'Edited'){
         this.modalData = { event, action };
         this.modal.open(this.modalContentEdit, { centered: true,size: 'lg' });
+        
         // this.eventU = event
+        console.log(this.eventU)
       } else if (action == 'Deleted'){
         this.deleteEvent(event)
         // this.modalData = { event, action };
@@ -290,16 +310,17 @@ const colors: any = {
 
       console.log(this.eventA)
       delete this.eventA.actions
-      this.modal.dismissAll()
+      // this.modal.dismissAll()
       this.eventService.createEvents(this.eventA)
       .subscribe(
       res => {
         console.log(res);
-        this.router.navigate(['/'])
+        // this.router.navigate(['/'])
+        this.modal.dismissAll()
       },
       err => console.log(err)
       )
-
+      window.location.reload()
     }
 
     getEvents(){
@@ -319,8 +340,10 @@ const colors: any = {
           // console.log("before update: ", this.test)
           for(let i = 0; i < this.test.length ; i++){
             //CAMBIO DE FORMATO DATE
-            let date = this.test[i].start
-            this.test[i].start = new Date(date)
+            let startdate = this.test[i].start
+            let enddate = this.test[i].end!
+            this.test[i].start = new Date(startdate)
+            this.test[i].end! = new Date(enddate!)
             //ADICION DE ACTIONS
             this.test[i].actions = this.actions
           }
@@ -343,15 +366,17 @@ const colors: any = {
       }else{
         //guardar info
         let data = this.modalData?.event
+        console.log("data",data)
         this.eventU = data
-        //obtener id
+        console.log("eventu",this.eventU)
+        // obtener id
         delete this.eventU.actions
         let response = JSON.stringify(this.eventU)
         const objeto = JSON.parse(response);
         this.testU = objeto
         let arrUpdate = Object.values(this.testU)
         console.log("Event a actualizar",arrUpdate)
-        let id = arrUpdate[0]
+        let id = arrUpdate[1]
 
         this.modal.dismissAll()
 
@@ -366,9 +391,7 @@ const colors: any = {
           },
           err => console.log(err)
           )
-
       }
-
     }
 
     deleteEvent(eventToDelete: CalendarEvent) {
@@ -379,11 +402,12 @@ const colors: any = {
       this.testD = objeto
       let arrDelete = Object.values(this.testD)
       console.log("Event a eliminar",arrDelete)
-      let id = arrDelete[0]
+      let id = arrDelete[1]
       this.modal.dismissAll()
       this.eventService.deleteEvents(id.toString()).subscribe(
         res =>{
           console.log(res)
+          this.refresh.next()
         },
         err => console.log(err)
       )

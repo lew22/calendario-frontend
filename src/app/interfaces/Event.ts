@@ -1,5 +1,5 @@
 import { CalendarEventAction } from "angular-calendar";
-
+import { Color } from "./color"
 
 export interface Event{
     // _id?: String;
@@ -9,9 +9,10 @@ export interface Event{
     // createdAt?: Date
     _id?: string;
     start: Date;
-    // end: Date;
+    end?: Date;
     title: string;
-    actions?: CalendarEventAction[]
+    color?: Color;
+    actions?: CalendarEventAction[];
     // color:{
     //     primary: string,
     //     secondary: string

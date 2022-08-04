@@ -6,3 +6,19 @@ pre {
     background-color: #f5f5f5;
     padding: 15px;
   }
+
+.circle{
+  height: 25px;
+  width: 25px;
+}
+.red {
+    background-color: red;
+}
+
+.blue {
+  background-color: blue;
+}
+
+.yellow {
+  background-color: yellow;
+}

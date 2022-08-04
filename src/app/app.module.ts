@@ -26,7 +26,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { EventListComponent } from './components/event-list/event-list.component';
 import { EventFormComponent } from './components/event-form/event-form.component';
 import { ObjToArrayPipe } from './objToArray';
-
+import { NgxColorsModule } from 'ngx-colors';
 
 @NgModule({
   declarations: [
@@ -39,6 +39,7 @@ import { ObjToArrayPipe } from './objToArray';
   ],
   imports: [ 
     NgbModule,
+    NgxColorsModule,
     BrowserAnimationsModule,
     CommonModule,
     HttpClientModule,

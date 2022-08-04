@@ -49,9 +49,11 @@ export class EventFormComponent implements OnInit {
   toDate: NgbDate | null;
 
   event: Event = {
-    start:new Date,
+    start:new Date(),
+    end:new Date(),
     // end:new Date,
     title: '',
+    color:colors.red,
     actions: []
     // color:{        
     // primary: '#ad2121',
