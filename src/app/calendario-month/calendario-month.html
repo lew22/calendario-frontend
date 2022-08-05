@@ -2,67 +2,86 @@
   <div class="col-md-4">
     <div class="btn-group">
       <div
-        class="btn btn-primary"
+        class="btn btn orangem"
         mwlCalendarPreviousView
         [view]="view"
         [(viewDate)]="viewDate"
         (viewDateChange)="closeOpenMonthViewDay()"
       >
-        Previous
+        Anterior
       </div>
       <div
-        class="btn btn-outline-secondary"
+        class="btn btn-outline orangem"
         mwlCalendarToday
         [(viewDate)]="viewDate"
       >
-        Today
+        Hoy
       </div>
       <div
-        class="btn btn-primary"
+        class="btn btn orangem"
         mwlCalendarNextView
         [view]="view"
         [(viewDate)]="viewDate"
         (viewDateChange)="closeOpenMonthViewDay()"
       >
-        Next
+        Siguiente
       </div>
     </div>
   </div>
   <div class="col-md-4">
-    <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
+    <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'es' }}</h3>
   </div>
   <div class="col-md-4">
     <div class="btn-group">
       <div
-        class="btn btn-primary"
+        class="btn btn orangem"
         (click)="setView(CalendarView.Month)"
         [class.active]="view === CalendarView.Month"
       >
-        Month
+        Mes
       </div>
       <div
-        class="btn btn-primary"
+        class="btn btn orangem"
         (click)="setView(CalendarView.Week)"
         [class.active]="view === CalendarView.Week"
       >
-        Week
+        Semana
       </div>
       <div
-        class="btn btn-primary"
+        class="btn btn orangem"
         (click)="setView(CalendarView.Day)"
         [class.active]="view === CalendarView.Day"
       >
-        Day
+        Día
       </div>
     </div>
   </div>
 </div>
 <br />
-<div [ngSwitch]="view">
-  <mwl-calendar-month-view
+
+<div [ngSwitch]="view" class="row">
+
+  <div class="col-sm-2">
+    <h3>Leyenda</h3>
+    <div class="mb-4">
+      <div class="circle red rounded-circle"></div>
+      <span class="p-1">Zoom 1</span>
+    </div>
+    <div class="mb-4">
+      <div class="circle blue rounded-circle"></div>
+      <span class="p-1">Zoom 2</span>
+    </div>
+    <div class="mb-4">
+      <div class="circle yellow rounded-circle"></div>
+      <span class="p-1">Zoom 3</span>
+    </div>
+  </div>
+  <div class="col-sm-8">
+    <mwl-calendar-month-view
     *ngSwitchCase="CalendarView.Month"
     [viewDate]="viewDate"
     [events]="events"
+    [locale]="locale"
     [refresh]="refresh"
     [activeDayIsOpen]="activeDayIsOpen"
     (dayClicked)="dayClicked($event.day)"
@@ -75,6 +94,7 @@
     *ngSwitchCase="CalendarView.Week"
     [viewDate]="viewDate"
     [events]="events"
+    [locale]="locale"
     [refresh]="refresh"
     (eventClicked)="handleEvent('Clicked', $event.event)"
     (eventTimesChanged)="eventTimesChanged($event)"
@@ -85,15 +105,17 @@
     *ngSwitchCase="CalendarView.Day"
     [viewDate]="viewDate"
     [events]="events"
+    [locale]="locale"
     [refresh]="refresh"
     (eventClicked)="handleEvent('Clicked', $event.event)"
     (eventTimesChanged)="eventTimesChanged($event)"
   >
   </mwl-calendar-day-view>
+  </div>
 
   <div>
-    <button class="btn btn-primary float-right" (click)="openModalAdd()">
-      Add new
+    <button class="btn btn orangem float-right" (click)="openModalAdd()">
+      Agregar nuevo evento
     </button>
     <!-- <button class="btn btn-primary float-right" (click)="addEvent()">
       Add new
@@ -103,24 +125,11 @@
       get Events
     </button> -->
   </div>
+
 </div>
 
 
-<div>
-  <h3>Leyenda</h3>
-  <div class="mb-4">
-    <div class="circle red rounded-circle"></div>
-    <span class="p-1">Zoom 1</span>
-  </div>
-  <div class="mb-4">
-    <div class="circle blue rounded-circle"></div>
-    <span class="p-1">Zoom 2</span>
-  </div>
-  <div class="mb-4">
-    <div class="circle yellow rounded-circle"></div>
-    <span class="p-1">Zoom 3</span>
-  </div>
-</div>
+
 
 <!-- Everything you see below is just for the demo, you don't need to include it in your app -->
 
@@ -131,7 +140,7 @@
 
     <div class="row-cols-sm-auto offset-md-auto p-3">
       <div class="modal-header">
-        <h5 class="modal-title">Add Event</h5>
+        <h5 class="modal-title">Agregar Evento</h5>
         <button type="button" class="ml close" (click)="close()">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -166,7 +175,7 @@
               </div>
               <!-- Date -->
               <form class="row row-cols-sm-auto">
-                <h6 class="modal-title">start at</h6>
+                <h6 class="modal-title">empieza el</h6>
                 <div class="input-group ">
                   <input
                   class="form-control"
@@ -183,7 +192,7 @@
                 />
                 </div>
                 
-                <h6 class="modal-title">end at</h6>
+                <h6 class="modal-title">termina el</h6>
                 <div class="input-group">
                   <input
                   class="form-control"

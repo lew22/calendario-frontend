@@ -34,6 +34,7 @@ import {
 import { ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
 import { provideProtractorTestingSupport } from '@angular/platform-browser';
 
+
 const colors: any = {
     red: {
       primary: '#ad2121',
@@ -65,12 +66,13 @@ const colors: any = {
       `,
     ],
     templateUrl: './calendario-month.html',
-    styleUrls: ['./calendario.component.css']
+    styleUrls: ['./calendario.component.css'],
   })
   
   export class CalendarioMonthComponent {
   
-  
+  locale: string = 'es';
+
   @ViewChild('modalContent', { static: true }) modalContent?: TemplateRef<any>;
   @ViewChild('modalContentAdd', { static: true }) modalContentAdd?: TemplateRef<any>;
   @ViewChild('modalContentEdit', { static: true }) modalContentEdit?: TemplateRef<any>;

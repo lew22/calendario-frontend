@@ -28,6 +28,12 @@ import { EventFormComponent } from './components/event-form/event-form.component
 import { ObjToArrayPipe } from './objToArray';
 import { NgxColorsModule } from 'ngx-colors';
 
+import { registerLocaleData } from '@angular/common';
+import localeEs from '@angular/common/locales/es';
+
+registerLocaleData(localeEs);
+
+
 @NgModule({
   declarations: [
     AppComponent,
