@@ -16,6 +16,7 @@ import {
     isSameDay,
     isSameMonth,
     addHours,
+    isToday,
   } from 'date-fns';
   
   import { Subject } from 'rxjs';
@@ -256,8 +257,10 @@ const colors: any = {
       ) {
         this.getEvents()
       }
-  
+
     dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
+      console.log(date,events)
+
       if (isSameMonth(date, this.viewDate)) {
         if (
           (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
@@ -296,7 +299,8 @@ const colors: any = {
         this.modal.open(this.modalContentEdit, { centered: true,size: 'lg' });
         
         // this.eventU = event
-        console.log(this.eventU)
+        // console.log(this.eventU)
+        // console.log(this.modalData)
       } else if (action == 'Deleted'){
         this.deleteEvent(event)
         // this.modalData = { event, action };
@@ -319,6 +323,7 @@ const colors: any = {
         console.log(res);
         // this.router.navigate(['/'])
         this.modal.dismissAll()
+        this.refresh.next()
       },
       err => console.log(err)
       )
@@ -389,6 +394,7 @@ const colors: any = {
               //ADICION DE ACTIONS
               this.test[i].actions = this.actions
             }
+
             this.refresh.next()
           },
           err => console.log(err)

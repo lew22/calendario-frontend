@@ -225,7 +225,7 @@
   <ng-template #modalContentEdit let-close="close">
     <div class="table-responsive">
       <div class="modal-header">
-        <h5 class="modal-title">Edit Event</h5>
+        <h5 class="modal-title">Editar Evento</h5>
         <button type="button" class="ml close" (click)="close()">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -234,9 +234,10 @@
       <table class="table table-bordered">
         <thead>
           <tr>
-            <th>Title</th>
-            <th>Starts at</th>
-            <th>Ends at</th>
+            <th>Titulo</th>
+            <th>Empieza el</th>
+            <th>Termina el</th>
+            <th>Color</th>
           </tr>
         </thead>
         <tbody>
@@ -279,7 +280,21 @@
                 placeholder="Not set"
               />
             </td>
-         
+            
+            <td>
+              <div class="form-group">
+                <ngx-colors 
+                ngx-colors-trigger 
+                [palette]="colorPalette" 
+                [(ngModel)]="modalData?.event!.color!.primary!"
+                [hideColorPicker]="true" 
+                [hideTextInput]="true"
+                name="ngcolor"
+                >
+                </ngx-colors>
+              </div>
+            </td>
+
         </tbody>
        </table>
 
