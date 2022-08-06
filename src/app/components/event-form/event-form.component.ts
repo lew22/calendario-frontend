@@ -26,7 +26,7 @@ const colors: any = {
     primary: '#ad2121',
     secondary: '#FAE3E3',
   },
-  blue: {
+  verde: {
     primary: '#1e90ff',
     secondary: '#D1E8FF',
   },

@@ -38,15 +38,15 @@ import { provideProtractorTestingSupport } from '@angular/platform-browser';
 
 const colors: any = {
     red: {
-      primary: '#ad2121',
+      primary: '#EF9A9A',
       secondary: '#FAE3E3',
     },
-    blue: {
-      primary: '#1e90ff',
+    verde: {
+      primary: '#A5D6A7',
       secondary: '#D1E8FF',
     },
     yellow: {
-      primary: '#e3bc08',
+      primary: '#FFCC80',
       secondary: '#FDF1BA',
     },
   };
@@ -192,16 +192,16 @@ const colors: any = {
       // end:new Date()
     }
 
-    selectedColor:string = "#ff0000";
+    selectedColor:string = "#EF9A9A";
     // colorToAdd:string = '#EC407A';
     colorPalette:Array<any> = [
       // {
       //   preview: '#9c27b0e0', 
       //   variants:['#9c27b0','#9c27b0de','#9c27b0bd','#9c27b09c','#9c27b075','#9c27b047']
       // },
-      '#ff0000',
-      '#0000FF',
-      '#FFFF00'
+      '#EF9A9A',
+      '#A5D6A7',
+      '#FFCC80'
     ]
 
     // {

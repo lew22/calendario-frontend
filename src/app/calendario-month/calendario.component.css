@@ -12,15 +12,15 @@ pre {
   width: 25px;
 }
 .red {
-    background-color: red;
+    background-color: #EF9A9A;
 }
 
-.blue {
-  background-color: blue;
+.verde {
+  background-color: #A5D6A7;
 }
 
 .yellow {
-  background-color: yellow;
+  background-color: #FFCC80;
 }
 
 .orange {
