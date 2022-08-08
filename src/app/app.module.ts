@@ -18,6 +18,8 @@ import {MatNativeDateModule} from '@angular/material/core';
 
 // import 'flatpickr/dist/flatpickr.css';
 import { FlatpickrModule } from 'angularx-flatpickr';
+import flatpickr from 'flatpickr';
+import { Spanish} from 'flatpickr/dist/l10n/es';
 
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
@@ -32,7 +34,7 @@ import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
 
 registerLocaleData(localeEs);
-
+flatpickr.localize(Spanish);
 
 @NgModule({
   declarations: [

@@ -1,19 +1,19 @@
-<nav class="navbar navbar-expand-lg navbar-dark orange">
-    <a class="navbar-brand" href="#">Multitest</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ml-auto">
-        <!-- <li class="nav-item active">
-          <a class="nav-link" routerLink="/event" routerLinkActive="active">Eventos</a>
-        </li> -->
-        <!-- <li class="nav-item">
-          <a class="nav-link" routerLink="/event/create" routerLinkActive="active">Crear Eventos</a>
-        </li> -->
+
+  <nav class="navbar navbar-expand-lg navbar-dark orange">
+    <div class="container">
+      <a class="navbar-brand" href="#">Multitest</a>
+        <div class="navbar-brand">
+            <a href="home">
+                <i class="bi bi-bootstrap-fill"></i>
+            </a>
+        </div>
+        <button type="button" class="navbar-toggler" (click)="isCollapsed = !isCollapsed">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+      <div class="collapse navbar-collapse nav justify-content-end" [ngbCollapse]="isCollapsed">
         <li class="nav-item">
           <a class="nav-link" routerLink="/calendario" routerLinkActive="active">Calendario</a>
         </li>
-      </ul>
+      </div>
     </div>
   </nav>

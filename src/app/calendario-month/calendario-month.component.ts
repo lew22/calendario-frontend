@@ -72,8 +72,9 @@ const colors: any = {
   
   export class CalendarioMonthComponent {
   
-  locale: string = 'es';
+  locale: string = 'es';   
 
+  //modals
   @ViewChild('modalContent', { static: true }) modalContent?: TemplateRef<any>;
   @ViewChild('modalContentAdd', { static: true }) modalContentAdd?: TemplateRef<any>;
   @ViewChild('modalContentEdit', { static: true }) modalContentEdit?: TemplateRef<any>;

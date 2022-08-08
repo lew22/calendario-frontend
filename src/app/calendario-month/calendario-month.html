@@ -60,8 +60,20 @@
 <br />
 
 <div [ngSwitch]="view" class="row">
-
   <div class="col-sm-2">
+    <div>
+      <button class="btn btn orangem float-right" (click)="openModalAdd()">
+        Agregar Evento
+      </button>
+      <!-- <button class="btn btn-primary float-right" (click)="addEvent()">
+        Add new
+      </button> -->
+    
+      <!-- <button class="btn btn-primary float-right mb-2 me-2" (click)="getEvents()">
+        get Events
+      </button> -->
+    </div>
+
     <h3>Leyenda</h3>
     <div class="mb-4">
       <div class="circle red rounded-circle"></div>
@@ -111,19 +123,6 @@
     (eventTimesChanged)="eventTimesChanged($event)"
   >
   </mwl-calendar-day-view>
-  </div>
-
-  <div>
-    <button class="btn btn orangem float-right" (click)="openModalAdd()">
-      Agregar nuevo evento
-    </button>
-    <!-- <button class="btn btn-primary float-right" (click)="addEvent()">
-      Add new
-    </button> -->
-
-    <!-- <button class="btn btn-primary float-right mb-2 me-2" (click)="getEvents()">
-      get Events
-    </button> -->
   </div>
 
 </div>
@@ -176,7 +175,7 @@
               <!-- Date -->
               <form class="row row-cols-sm-auto">
                 <h6 class="modal-title">empieza el</h6>
-                <div class="input-group ">
+                <div class="input-group">
                   <input
                   class="form-control"
                   type="text"
@@ -193,7 +192,7 @@
                 </div>
                 
                 <h6 class="modal-title">termina el</h6>
-                <div class="input-group">
+                <div class="input-group" >
                   <input
                   class="form-control"
                   type="text"
@@ -420,7 +419,6 @@
     </tbody>
   </table> -->
 <!-- </div> -->
-
 
 
 
