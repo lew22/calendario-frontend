@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  server: 'http://localhost:5000',
+  server: 'https://calendariomultitest-backend.herokuapp.com',
   PORT: '5000'
 };
 
