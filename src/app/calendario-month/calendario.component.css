@@ -30,3 +30,8 @@ pre {
 .orangem{
   background-color: #eca007
 }
+
+.info {
+  postion:absolute;
+  word-wrap: break-word;
+}

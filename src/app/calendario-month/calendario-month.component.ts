@@ -25,7 +25,7 @@ import {
   import { EventService } from 'src/app/services/event.service';
   import { Router } from '@angular/router'
   import { pluck } from 'rxjs/operators';
-  
+  import {FlatpickrDefaultsInterface} from 'src/flatpickdefaults'
   import {
     CalendarEvent,
     CalendarEventAction,
@@ -35,6 +35,7 @@ import {
 import { ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
 import { provideProtractorTestingSupport } from '@angular/platform-browser';
 
+import {Directive,ElementRef,AfterViewInit} from '@angular/core';
 
 const colors: any = {
     red: {
@@ -70,15 +71,20 @@ const colors: any = {
     styleUrls: ['./calendario.component.css'],
   })
   
-  export class CalendarioMonthComponent {
+  export class CalendarioMonthComponent implements AfterViewInit{
   
   locale: string = 'es';   
-
+  
   //modals
   @ViewChild('modalContent', { static: true }) modalContent?: TemplateRef<any>;
   @ViewChild('modalContentAdd', { static: true }) modalContentAdd?: TemplateRef<any>;
   @ViewChild('modalContentEdit', { static: true }) modalContentEdit?: TemplateRef<any>;
 
+  // // flatpick
+  // @ViewChild('mydiv') element: ElementRef| null = null;
+
+  // options: FlatpickrDefaultsInterface = {
+  // };
 
     view: CalendarView = CalendarView.Month;
     title ='calendario-frontend';
@@ -256,9 +262,17 @@ const colors: any = {
       private eventService: EventService,
       private router: Router
       ) {
+        
         this.getEvents()
+        
       }
-
+    
+    ngAfterViewInit(){
+      // console.log(this.modalContentAdd?.elementRef.nativeElement)
+      // this.element = this.modalContentAdd?.elementRef.nativeElement
+      // this.options.appendTo = this.modalContentAdd?.elementRef.nativeElement
+    }
+ 
     dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
       console.log(date,events)
 
