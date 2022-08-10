@@ -123,6 +123,21 @@ export interface FlatpickrDefaultsInterface {
    */
   mode?: 'single' | 'multiple' | 'range';
 
+
+
+  position?: | "auto"
+  | "above"
+  | "below"
+  | "auto left"
+  | "auto center"
+  | "auto right"
+  | "above left"
+  | "above center"
+  | "above right"
+  | "below left"
+  | "below center"
+  | "below right";
+
   /**
    * HTML for the arrow icon, used to switch months.
    */
@@ -331,6 +346,21 @@ export class FlatpickrDefaults implements FlatpickrDefaultsInterface {
    * Select a single date, multiple dates or a date range.
    */
   mode: 'single' | 'multiple' | 'range' = 'single';
+
+
+  position: 'auto'
+  | 'above'
+  | 'below'
+  | 'auto left'
+  | 'auto center'
+  | 'auto right'
+  | 'above left'
+  | 'above center'
+  | 'above right'
+  | 'below left'
+  | 'below center'
+  | 'below right' = 'auto'
+
 
   /**
    * HTML for the arrow icon, used to switch months.

@@ -214,13 +214,14 @@
               <form class="row row-cols-sm-auto">
                 <h6 class="modal-title">empieza el</h6>
                 <div class="input-group">
-                  <input
+                  <input 
                   class="form-control"
                   type="text"
                   mwlFlatpickr
                   [altInput]="true"
                   [convertModelValue]="true"
                   [enableTime]="true"
+                  [options]="options"
                   dateFormat="Y-m-dTH:i"
                   altFormat="F j, Y H:i"
                   placeholder="Not set"
@@ -238,6 +239,7 @@
                   [altInput]="true"
                   [convertModelValue]="true"
                   [enableTime]="true"
+                  [options]="options"
                   dateFormat="Y-m-dTH:i"
                   altFormat="F j, Y H:i"
                   placeholder="Not set"

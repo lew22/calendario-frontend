@@ -25,7 +25,10 @@ import {
   import { EventService } from 'src/app/services/event.service';
   import { Router } from '@angular/router'
   import { pluck } from 'rxjs/operators';
+
   import {FlatpickrDefaultsInterface} from 'src/flatpickdefaults'
+  import { BaseOptions } from 'flatpickr/dist/types/options';
+
   import {
     CalendarEvent,
     CalendarEventAction,
@@ -83,8 +86,10 @@ const colors: any = {
   // // flatpick
   // @ViewChild('mydiv') element: ElementRef| null = null;
 
-  // options: FlatpickrDefaultsInterface = {
-  // };
+  options: FlatpickrDefaultsInterface = {
+    minuteIncrement: 1,
+    static:true
+  };
 
     view: CalendarView = CalendarView.Month;
     title ='calendario-frontend';
