@@ -68,9 +68,9 @@ const colors: any = {
       `,
     ],
     templateUrl: './calendario-month.html',
-    styleUrls: ['./calendario.component.css'],
+    styleUrls: ['./calendario.component.css',]
   })
-  
+  // styleUrls: ['./calendario.component.css'],
   export class CalendarioMonthComponent implements AfterViewInit{
   
   locale: string = 'es';   

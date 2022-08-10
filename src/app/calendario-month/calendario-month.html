@@ -61,41 +61,41 @@
 
 <div [ngSwitch]="view" class="row">
   <div class="col-sm-3">
-    <h3>Leyenda</h3>
-    <div class="mb-4">
+    <!-- <h3>Leyenda</h3> -->
+    <div class="mb-5">
       <div class="circle red rounded-circle">
         <span class="ml-5">Zoom1</span>
       </div>
       <div class="info">
-          Usuario:psicologos@multitestresources.com
+          psicologos@multitestresources.com
           <br>
-          Password:Multitest321
+          Multitest321
       </div>
       <!-- <span class="p-1">Zoom 1</span> -->
 
     </div>
 
-    <div class="mb-4">
+    <div class="mb-5">
       <div class="circle verde rounded-circle">
         <span class="ml-5">Zoom2</span>
       </div>
       <div class="info">
-          Usuario:charlas@multitestresources.com
+          charlas@multitestresources.com
           <br>
-          Password:Multitest123
+          Multitest123
       </div>
       <!-- <span class="p-1">Zoom 1</span> -->
 
     </div>
 
-    <div class="mb-4">
+    <div class="mb-5">
       <div class="circle yellow rounded-circle">
         <span class="ml-5">Zoom3</span>
       </div>
       <div class="info">
-          Usuario:rafaelmartinez@multitestresources.com
+          rafaelmartinez@multitestresources.com
           <br>
-          Password:Multitest123321
+          Multitest123321
       </div>
       <!-- <span class="p-1">Zoom 1</span> -->
 
@@ -111,7 +111,7 @@
     </div> -->
 
     <div class="mr-auto"> 
-      <button class="btn btn orangem float-right" (click)="openModalAdd()">
+      <button class="btn btn orangem float-right btn-block" (click)="openModalAdd()">
         Agregar Evento
       </button>
       <!-- <button class="btn btn-primary float-right" (click)="addEvent()">
@@ -124,6 +124,7 @@
     </div>
 
   </div>
+
   <div class="col-sm-8">
     <mwl-calendar-month-view
     *ngSwitchCase="CalendarView.Month"

@@ -28,10 +28,14 @@ pre {
 }
 
 .orangem{
-  background-color: #eca007
+  background-color: #ec6707;
+  margin-top: 5px;
+  color:#f5f5f5
 }
 
 .info {
-  postion:absolute;
+  position:absolute;
   word-wrap: break-word;
+  font-size: 14px;
 }
+
