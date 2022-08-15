@@ -134,7 +134,7 @@ const colors: any = {
     arr: Event[] = [{
       start: new Date(),
       end:new Date(),
-      title: "sad",
+      title: "",
       color: colors.red,
       actions: []
     }]
@@ -187,7 +187,7 @@ const colors: any = {
     ];
 
     eventA: Event = {
-      title:'testing',
+      title:'',
       start:new Date(),
       end:new Date(),
       color: colors.red,
