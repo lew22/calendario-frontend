@@ -4,7 +4,7 @@ import {
     ChangeDetectionStrategy,
     ViewChild,
     TemplateRef,
-    OnInit,
+    OnInit
   } from '@angular/core';
   
   import {
@@ -20,7 +20,7 @@ import {
   } from 'date-fns';
   
   import { Subject } from 'rxjs';
-  import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+  import { NgbModal,NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
   import { Event } from '../interfaces/Event';
   import { EventService } from 'src/app/services/event.service';
   import { Router } from '@angular/router'
@@ -39,6 +39,8 @@ import { ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
 import { provideProtractorTestingSupport } from '@angular/platform-browser';
 
 import {Directive,ElementRef,AfterViewInit} from '@angular/core';
+
+import {CdkTextareaAutosize} from '@angular/cdk/text-field';
 
 const colors: any = {
     red: {
@@ -79,7 +81,7 @@ const colors: any = {
   locale: string = 'es';   
   
   //modals
-  @ViewChild('modalContent', { static: true }) modalContent?: TemplateRef<any>;
+  @ViewChild('modalContent', { static: true}) modalContent?: TemplateRef<any>;
   @ViewChild('modalContentAdd', { static: true }) modalContentAdd?: TemplateRef<any>;
   @ViewChild('modalContentEdit', { static: true }) modalContentEdit?: TemplateRef<any>;
 
@@ -117,7 +119,7 @@ const colors: any = {
         a11yLabel: 'Delete',
         onClick: ({ event }: { event: CalendarEvent }): void => {
           this.handleEvent('Deleted', event);
-          this.events = this.events.filter((iEvent) => iEvent !== event);
+          // this.events = this.events.filter((iEvent) => iEvent !== event);
         },
       },
     ];
@@ -334,9 +336,9 @@ const colors: any = {
 
     addEvent(){
 
-      console.log(this.eventA)
-      delete this.eventA.actions
-      // this.modal.dismissAll()
+    console.log(this.eventA)
+    delete this.eventA.actions
+    this.modal.dismissAll()
       this.eventService.createEvents(this.eventA)
       .subscribe(
       res => {
@@ -423,22 +425,29 @@ const colors: any = {
     }
 
     deleteEvent(eventToDelete: CalendarEvent) {
-      this.events = this.events.filter((event) => event !== eventToDelete);
+      
+      if(confirm("Estas seguro de eliminar este evento ? ")) {
+        this.events = this.events.filter((event) => event !== eventToDelete);
 
-      let response = JSON.stringify(eventToDelete)
-      const objeto = JSON.parse(response);
-      this.testD = objeto
-      let arrDelete = Object.values(this.testD)
-      console.log("Event a eliminar",arrDelete)
-      let id = arrDelete[1]
-      this.modal.dismissAll()
-      this.eventService.deleteEvents(id.toString()).subscribe(
-        res =>{
-          console.log(res)
-          this.refresh.next()
-        },
-        err => console.log(err)
-      )
+        let response = JSON.stringify(eventToDelete)
+        const objeto = JSON.parse(response);
+        this.testD = objeto
+        let arrDelete = Object.values(this.testD)
+        console.log("Event a eliminar",arrDelete)
+        let id = arrDelete[1]
+        this.modal.dismissAll()
+        this.eventService.deleteEvents(id.toString()).subscribe(
+          res =>{
+            console.log(res)
+            this.refresh.next()
+          },
+          err => console.log(err)
+        )
+
+        console.log("El evento fue eliminado satisfactoriamente");
+      }
+
+
     }
   
     setView(view: CalendarView) {

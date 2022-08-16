@@ -39,6 +39,13 @@ pre {
   font-size: 14px;
 }
 
+.modalContentAdd{
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+
 /deep/ .cal-month-view .cal-open-day-events {
   color: #555;
   background-color: #fff;
