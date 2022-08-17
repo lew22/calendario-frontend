@@ -7,9 +7,13 @@ import {CalendarioMonthComponent} from './calendario-month/calendario-month.comp
 import {EventFormComponent} from './components/event-form/event-form.component'
 
 const routes: Routes = [
+  {
+    path:'',
+    component: CalendarioMonthComponent
+  },
   // {
-  //   path:'',
-  //   component: AppComponent
+  //   path:'calendario',
+  //   component: CalendarioMonthComponent
   // },
   {
     path:'eventlist',
@@ -26,10 +30,6 @@ const routes: Routes = [
   {
     path:'event/edit/:id',
     component: EventFormComponent
-  },
-  {
-    path:'calendario',
-    component: CalendarioMonthComponent
   }
 ];
 
