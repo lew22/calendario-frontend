@@ -346,10 +346,11 @@ const colors: any = {
         // this.router.navigate(['/'])
         this.modal.dismissAll()
         this.refresh.next()
+        window.location.reload()
       },
       err => console.log(err)
       )
-      window.location.reload()
+      // 
     }
 
     getEvents(){
