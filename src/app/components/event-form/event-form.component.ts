@@ -54,7 +54,8 @@ export class EventFormComponent implements OnInit {
     // end:new Date,
     title: '',
     color:colors.red,
-    actions: []
+    actions: [],
+    link:''
     // color:{        
     // primary: '#ad2121',
     // secondary: '#FAE3E3'},

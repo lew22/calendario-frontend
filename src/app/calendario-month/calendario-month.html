@@ -254,6 +254,12 @@
                   </ngx-colors>
                 </div>
 
+                <div class="form-group col-md-6">
+                  <label for="title">Link</label>
+                  <input type="text" name = "link"  [(ngModel)]="eventA.link" name="link" class="form-control" placeholder="Evento Link">
+                  <!-- <textarea mdbInput class="form-control" name = "title" [(ngModel)]="eventA.title" rows="4"></textarea> -->
+                </div>
+
                 </form>
 
               <hr>
@@ -359,6 +365,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
+
           <form (submit)="updateEvent()">
               <!-- Date -->
               <form class="form-row">

@@ -13,6 +13,7 @@ export interface Event{
     title: string;
     color?: Color;
     actions?: CalendarEventAction[];
+    link?: string;
     // color:{
     //     primary: string,
     //     secondary: string

@@ -122,6 +122,14 @@ const colors: any = {
           // this.events = this.events.filter((iEvent) => iEvent !== event);
         },
       },
+      {
+        label: '<i class="fas fa-solid fa-link"></i>',
+        a11yLabel: 'Link',
+        onClick: ({ event }: { event: CalendarEvent }): void => {
+          this.handleEvent('Link', event);
+          // this.events = this.events.filter((iEvent) => iEvent !== event);
+        },
+      },
     ];
     
 
@@ -133,12 +141,15 @@ const colors: any = {
 
     testU: Event[] = []
 
+    testL: Event[] = []
+
     arr: Event[] = [{
       start: new Date(),
       end:new Date(),
       title: "",
       color: colors.red,
-      actions: []
+      actions: [],
+      link:''
     }]
 
     events: CalendarEvent[] = [
@@ -193,7 +204,8 @@ const colors: any = {
       start:new Date(),
       end:new Date(),
       color: colors.red,
-      actions: []
+      actions: [],
+      link:''
       // end:new Date()
     }
 
@@ -202,7 +214,8 @@ const colors: any = {
       start:new Date(),
       end:new Date(),
       color: colors.red,
-      actions: []
+      actions: [],
+      link:''
       // end:new Date()
     }
 
@@ -328,6 +341,12 @@ const colors: any = {
         // this.modalData = { event, action };
         // this.modal.open(this.modalContent, { centered: true,size: 'lg' });
       }
+      else if (action == 'Link'){
+        this.linkEvent(event)
+        // this.modalData = { event, action };
+        // this.modal.open(this.modalContent, { centered: true,size: 'lg' });
+      }
+
     }
 
     openModalAdd(){
@@ -407,7 +426,7 @@ const colors: any = {
         let arrUpdate = Object.values(this.testU)
         console.log("Event a actualizar",arrUpdate)
         let id = arrUpdate[1]
-
+        
         this.modal.dismissAll()
 
         this.eventService.updateEvents(id.toString(),this.eventU).subscribe(
@@ -449,6 +468,20 @@ const colors: any = {
       }
 
 
+    }
+
+    linkEvent(eventToLink: CalendarEvent){
+
+      let response = JSON.stringify(eventToLink)
+      const objeto = JSON.parse(response);
+      this.testL = objeto
+      let arrLink = Object.values(this.testL)
+      console.log("Event",arrLink)
+      let link = arrLink[5]
+      let url = link.toString()
+      console.log("tu pagina es: ",url)
+
+      window.open(url,"_blank")
     }
   
     setView(view: CalendarView) {
